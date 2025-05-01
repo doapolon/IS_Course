@@ -2,7 +2,7 @@ import numpy as np
 
 def uniform_intervals(a, b, n):
     """1. создает numpy массив - равномерное разбиение интервала от a до b на n отрезков."""
-    return np.linspace(a, b, n + 1)
+    return np.linspace(a, b, n)
 
 def cyclic123_array(n):
     """2. Генерирует numpy массив длины  3𝑛 , заполненный циклически числами 1, 2, 3, 1, 2, 3, 1...."""
@@ -24,8 +24,8 @@ def zeros_array_with_border(n):
 def chess_board(n):
     """5. Создаёт массив n x n с шахматной доской из нулей и единиц"""
     board = np.zeros((n, n), dtype=int)
-    board[1::2, ::2] = 1  # заполняем единицами на четных строках
-    board[::2, 1::2] = 1  # заполняем единицами на нечетных строках
+    board[1::2, 1::2] = 1  # заполняем единицами на четных строках
+    board[::2, ::2] = 1  # заполняем единицами на нечетных строках
     return board
 
 def matrix_with_sum_index(n):
@@ -46,8 +46,8 @@ def cos_sin_as_two_rows(a, b, dx):
 def compute_mean_rowssum_columnssum(A):
     """8. Для numpy массива A вычисляет среднее всех элементов, сумму строк и сумму столбцов."""
     mean_value = np.mean(A)
-    row_sums = np.sum(A, axis=1)
-    column_sums = np.sum(A, axis=0)
+    row_sums = np.sum(A, axis=0)
+    column_sums = np.sum(A, axis=1)
     return mean_value, row_sums, column_sums
 
 def sort_array_by_column(A, j):
@@ -65,7 +65,7 @@ def compute_integral(a, b, f, dx, method):
     """
     if method not in ['rectangular', 'trapezoidal', 'simpson']:
         raise ValueError("Метод должен быть 'rectangular', 'trapezoidal' или 'simpson'.")
-    x = np.arange(a, b, dx)  # Создаем массив значений x на интервале [a, b] с шагом dx
+    x = np.linspace(a, b, num=int((b - a) / dx) + 1)  # Создаем массив значений x на интервале [a, b] с шагом dx
 
     if method == 'rectangular':  # Метод прямоугольников (левые прямоугольники)
         integral = np.sum(f(x)) * dx
